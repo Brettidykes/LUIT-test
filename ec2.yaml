@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: Simple CloudFormation Template to deploy an EC2 instance with a Hello World webpage.
+Description: Simple CloudFormation Template to deploy an EC2 instance with a linked image webpage.
 
 Resources:
   MyEC2Instance:
@@ -16,7 +16,24 @@ Resources:
           yum install -y httpd
           systemctl start httpd
           systemctl enable httpd
-          echo "Hello World" > /var/www/html/index.html
+          cat <<EOF > /var/www/html/index.html
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <title>Hello There!</title>
+          </head>
+          <body>
+              <h1>Hello There!</h1>
+              <a href="https://ibb.co/0j0DW2tB">
+                  <img src="https://i.ibb.co/4ZbmDtds/mike-profile-Linked-In-Profile-Picture.png" 
+                       alt="mike-profile-Linked-In-Profile-Picture" 
+                       border="0"
+                       style="max-width: 100%; height: auto;">
+              </a>
+          </body>
+          </html>
+          EOF
 
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
